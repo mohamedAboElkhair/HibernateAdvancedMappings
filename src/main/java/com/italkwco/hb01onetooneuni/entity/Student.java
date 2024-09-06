@@ -2,6 +2,9 @@ package com.italkwco.hb01onetooneuni.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "student")
 public class Student {
@@ -23,6 +26,15 @@ public class Student {
 
     @Column(name="email")
     private String email;
+
+
+    @ManyToMany
+    @JoinTable(name = "course_student",
+            joinColumns =@JoinColumn(name = "student_id"),
+            inverseJoinColumns =@JoinColumn(name = "course_id"))
+    private List<Course> courses;
+
+
 
     public Student() {
     }
@@ -64,6 +76,16 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+
 
     @Override
     public String toString() {
